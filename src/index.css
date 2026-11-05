@@ -1,0 +1,593 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-dark: #0A0C10;
+    --panel-dark: #12151D;
+    --panel-card: #181C26;
+    --panel-border: #232938;
+    --accent-orange: #FF6129;
+    --accent-emerald: #10B981;
+    --accent-blue: #3B82F6;
+    --accent-purple: #8B5CF6;
+    --accent-pink: #EC4899;
+    --accent-cyan: #06B6D4;
+    --accent-amber: #F59E0B;
+  }
+
+  body {
+    background-color: var(--bg-dark);
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  h1, h2, h3, h4, .font-heading {
+    font-family: 'Outfit', sans-serif;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  #root {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0A0C10;
+}
+::-webkit-scrollbar-thumb {
+  background: #252D3D;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #364154;
+}
+
+/* Glassmorphism helpers */
+.glass-panel {
+  background: rgba(18, 21, 29, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card {
+  background: rgba(24, 28, 38, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* SVG Line Animations */
+@keyframes dash-crawl {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 6px rgba(255, 97, 41, 0.6));
+  }
+  50% {
+    filter: drop-shadow(0 0 16px rgba(255, 97, 41, 0.9));
+  }
+}
+
+@keyframes accept-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 6px rgba(16, 185, 129, 0.6));
+  }
+  50% {
+    filter: drop-shadow(0 0 16px rgba(16, 185, 129, 0.95));
+  }
+}
+
+@keyframes reject-shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-4px); }
+  40%, 80% { transform: translateX(4px); }
+}
+
+.animate-cable-active {
+  stroke-dasharray: 6 6;
+  animation: dash-crawl 1s linear infinite;
+}
+
+.animate-glow-orange {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-glow-emerald {
+  animation: accept-glow 2s ease-in-out infinite;
+}
+
+.animate-shake {
+  animation: reject-shake 0.4s ease-in-out;
+}
+
+/* Slide fade animation */
+.slide-enter {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+.slide-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   Light Mode Theme - High Contrast, Legibility & Hierarchy
+   ========================================================================== */
+
+/* 1. App Root & Canvas Background */
+html.light,
+html.light body {
+  background-color: #F1F5F9 !important;
+  color: #0F172A !important;
+}
+
+html.light .bg-\[\#0A0C10\],
+html.light .bg-\[\#07090D\] {
+  background-color: #F1F5F9 !important;
+  color: #0F172A !important;
+}
+
+html.light .text-\[\#E2E8F0\] {
+  color: #0F172A !important;
+}
+
+/* 2. Elevated Containers & Glass Panels */
+html.light .glass-panel {
+  background: #FFFFFF !important;
+  border-color: #CBD5E1 !important;
+  box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.07), 0 2px 6px -1px rgba(15, 23, 42, 0.04) !important;
+}
+
+html.light .glass-card {
+  background: #FFFFFF !important;
+  border-color: #CBD5E1 !important;
+  box-shadow: 0 2px 8px -1px rgba(15, 23, 42, 0.05) !important;
+}
+
+/* 3. Text Contrast & Typography Hierarchy */
+html.light h1,
+html.light h2,
+html.light h3,
+html.light h4,
+html.light .font-heading {
+  color: #0F172A !important;
+}
+
+html.light .text-white {
+  color: #0F172A !important;
+}
+
+/* Exempt solid colored buttons, badges, and gradient elements to preserve crisp white text */
+html.light button.bg-\[\#FF6129\],
+html.light button.bg-\[\#FF6129\] *,
+html.light button[class*="from-[#FF6129]"],
+html.light button[class*="from-[#FF6129]"] *,
+html.light button[class*="bg-[#FF6129]"],
+html.light button[class*="bg-[#FF6129]"] *,
+html.light .bg-\[\#FF6129\].text-white,
+html.light .bg-\[\#FF6129\] .text-white,
+html.light [class*="bg-[#FF6129]"] > .text-white,
+html.light .bg-emerald-600,
+html.light .bg-emerald-600 *,
+html.light .bg-emerald-500,
+html.light .bg-emerald-500 *,
+html.light .bg-amber-500,
+html.light .bg-amber-500 * {
+  color: #FFFFFF !important;
+}
+
+/* High contrast secondary and body text */
+html.light .text-slate-200,
+html.light .text-slate-300 {
+  color: #1E293B !important;
+}
+
+html.light .text-slate-400 {
+  color: #475569 !important; /* WCAG AAA 5.5:1 ratio on light backgrounds */
+}
+
+html.light .text-slate-500 {
+  color: #64748B !important;
+}
+
+/* High contrast colored accent texts */
+html.light .text-\[\#FF8957\] {
+  color: #C2410C !important; /* Deep rich amber-orange */
+  font-weight: 700;
+}
+
+html.light .text-\[\#FF6129\] {
+  color: #C2410C !important;
+  font-weight: 700;
+}
+
+html.light .text-emerald-400,
+html.light .text-emerald-300,
+html.light .text-emerald-200 {
+  color: #047857 !important; /* Deep emerald-700 */
+  font-weight: 700;
+}
+
+html.light .text-red-400,
+html.light .text-red-300,
+html.light .text-red-200 {
+  color: #B91C1C !important; /* Deep red-700 */
+  font-weight: 700;
+}
+
+html.light .text-amber-400,
+html.light .text-amber-300,
+html.light .text-amber-200 {
+  color: #B45309 !important; /* Deep amber-700 */
+  font-weight: 700;
+}
+
+html.light .text-blue-400,
+html.light .text-blue-300,
+html.light .text-blue-200 {
+  color: #1D4ED8 !important; /* Deep blue-700 */
+  font-weight: 700;
+}
+
+html.light .text-purple-400,
+html.light .text-purple-300,
+html.light .text-purple-200 {
+  color: #6D28D9 !important; /* Deep purple-700 */
+  font-weight: 700;
+}
+
+html.light .text-cyan-400,
+html.light .text-cyan-300,
+html.light .text-cyan-200 {
+  color: #0E7490 !important; /* Deep cyan-700 */
+  font-weight: 700;
+}
+
+/* 4. Sub-cards, Inset Surfaces & Table Rows */
+html.light .bg-\[\#0D1017\],
+html.light .bg-\[\#0D1018\],
+html.light .bg-\[\#0D111A\],
+html.light .bg-\[\#0D121C\],
+html.light .bg-\[\#0E1119\],
+html.light .bg-\[\#0E121B\],
+html.light .bg-\[\#0C0F17\],
+html.light .bg-\[\#0C1019\],
+html.light .bg-\[\#0A0C12\],
+html.light .bg-\[\#0A0D14\],
+html.light .bg-\[\#090C12\],
+html.light .bg-\[\#0B0E16\],
+html.light .bg-\[\#10141E\],
+html.light .bg-\[\#101420\],
+html.light .bg-\[\#101520\],
+html.light .bg-\[\#111622\],
+html.light .bg-\[\#121622\],
+html.light .bg-\[\#121623\],
+html.light .bg-\[\#121724\],
+html.light .bg-\[\#141824\],
+html.light .bg-\[\#141926\],
+html.light .bg-\[\#141A27\],
+html.light .bg-\[\#151A27\],
+html.light .bg-\[\#161B27\],
+html.light .bg-\[\#161B28\],
+html.light .bg-\[\#171D2A\],
+html.light .bg-\[\#171D2B\],
+html.light .bg-\[\#181D2A\],
+html.light .bg-\[\#181D2B\],
+html.light .bg-\[\#181D2C\],
+html.light .bg-\[\#181E2B\],
+html.light .bg-\[\#192130\],
+html.light .bg-\[\#192233\],
+html.light .bg-\[\#1D2536\],
+html.light .bg-\[\#1E2536\],
+html.light .bg-\[\#1E2638\],
+html.light .bg-\[\#1F273A\],
+html.light .bg-\[\#202738\],
+html.light .bg-\[\#21293B\],
+html.light .bg-\[\#222938\],
+html.light .bg-\[\#252E42\] {
+  background-color: #F8FAFC !important;
+}
+
+/* Active concept card highlight */
+html.light .bg-\[\#151926\] {
+  background-color: #FFF7ED !important;
+}
+
+/* 5. Status Badges & Pill Containers */
+html.light .bg-emerald-500\/10,
+html.light .bg-emerald-500\/15,
+html.light .bg-emerald-500\/20,
+html.light .bg-emerald-950\/20,
+html.light .bg-emerald-950\/30,
+html.light .bg-emerald-950\/40 {
+  background-color: #ECFDF5 !important;
+  border-color: #A7F3D0 !important;
+  color: #065F46 !important;
+}
+
+html.light .bg-red-500\/10,
+html.light .bg-red-500\/15,
+html.light .bg-red-500\/20,
+html.light .bg-red-950\/20,
+html.light .bg-red-950\/30,
+html.light .bg-red-950\/40 {
+  background-color: #FEF2F2 !important;
+  border-color: #FECACA !important;
+  color: #991B1B !important;
+}
+
+html.light .bg-amber-500\/10,
+html.light .bg-amber-500\/15,
+html.light .bg-amber-500\/20,
+html.light .bg-amber-950\/20 {
+  background-color: #FFFBEB !important;
+  border-color: #FDE68A !important;
+  color: #92400E !important;
+}
+
+html.light .bg-blue-500\/10,
+html.light .bg-blue-500\/15,
+html.light .bg-blue-500\/20 {
+  background-color: #EFF6FF !important;
+  border-color: #BFDBFE !important;
+  color: #1E40AF !important;
+}
+
+html.light .bg-purple-500\/10,
+html.light .bg-purple-500\/15,
+html.light .bg-purple-500\/20 {
+  background-color: #F5F3FF !important;
+  border-color: #DDD6FE !important;
+  color: #5B21B6 !important;
+}
+
+html.light .bg-cyan-500\/10,
+html.light .bg-cyan-500\/15,
+html.light .bg-cyan-500\/20 {
+  background-color: #ECFEFF !important;
+  border-color: #A5F3FC !important;
+  color: #155E75 !important;
+}
+
+html.light .bg-\[\#FF6129\]\/10,
+html.light .bg-\[\#FF6129\]\/15,
+html.light .bg-\[\#FF6129\]\/20 {
+  background-color: #FFF7ED !important;
+  border-color: #FED7AA !important;
+  color: #9A3412 !important;
+}
+
+/* 6. Crisp Borders */
+html.light .border-\[\#1C2230\],
+html.light .border-\[\#1C2333\],
+html.light .border-\[\#1C2436\],
+html.light .border-\[\#1D2436\],
+html.light .border-\[\#1D2536\],
+html.light .border-\[\#1E2536\],
+html.light .border-\[\#1E2638\],
+html.light .border-\[\#1F2636\],
+html.light .border-\[\#1F2738\],
+html.light .border-\[\#1F2739\],
+html.light .border-\[\#202738\],
+html.light .border-\[\#202838\],
+html.light .border-\[\#21293A\],
+html.light .border-\[\#21293B\],
+html.light .border-\[\#212A3D\],
+html.light .border-\[\#222A3B\],
+html.light .border-\[\#222B3D\],
+html.light .border-\[\#222938\],
+html.light .border-\[\#232938\],
+html.light .border-\[\#232B3C\],
+html.light .border-\[\#232C3E\],
+html.light .border-\[\#232D42\],
+html.light .border-\[\#242E42\],
+html.light .border-\[\#242E44\],
+html.light .border-\[\#252F44\],
+html.light .border-\[\#252F45\],
+html.light .border-\[\#263147\],
+html.light .border-\[\#263148\],
+html.light .border-\[\#273247\],
+html.light .border-\[\#28354A\],
+html.light .border-\[\#29354D\],
+html.light .border-\[\#2B374E\],
+html.light .border-white\/5,
+html.light .border-white\/10 {
+  border-color: #CBD5E1 !important;
+}
+
+html.light .divide-\[\#1D2436\] > :not([hidden]) ~ :not([hidden]) {
+  border-color: #CBD5E1 !important;
+}
+
+/* Semi-transparent overlays & docks */
+html.light .bg-\[\#0A0D14\]\/90,
+html.light .bg-\[\#0A0D14\]\/85,
+html.light .bg-\[\#0A0C12\]\/80 {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-color: #CBD5E1 !important;
+}
+
+html.light .border-emerald-500\/40 {
+  border-color: #6EE7B7 !important;
+  background-color: #ECFDF5 !important;
+}
+
+html.light .border-emerald-500 {
+  border-color: #10B981 !important;
+}
+
+html.light .border-red-500 {
+  border-color: #EF4444 !important;
+}
+
+html.light .text-emerald-100 {
+  color: #065F46 !important;
+}
+
+html.light .via-\[\#121824\],
+html.light .via-\[\#182030\],
+html.light .via-\[\#121622\] {
+  --tw-gradient-stops: var(--tw-gradient-from), #F8FAFC, var(--tw-gradient-to) !important;
+}
+
+html.light .hover\:bg-white\/5:hover {
+  background-color: #E2E8F0 !important;
+}
+
+/* 7. Graph Canvas (SVG) Visualization Legibility */
+html.light svg {
+  background-color: #FFFFFF !important;
+  border-color: #CBD5E1 !important;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06) !important;
+}
+
+html.light pattern#graph-grid path {
+  stroke: #E2E8F0 !important;
+}
+
+html.light pattern#graph-grid circle {
+  fill: #94A3B8 !important;
+}
+
+/* Inactive edge lines */
+html.light svg line[stroke="#2A3347"] {
+  stroke: #94A3B8 !important;
+}
+
+/* Inactive weight badge */
+html.light svg rect[fill="#141A26"] {
+  fill: #FFFFFF !important;
+  stroke: #94A3B8 !important;
+  stroke-width: 1.5 !important;
+}
+
+html.light svg text[fill="#94A3B8"] {
+  fill: #0F172A !important;
+  font-weight: 800 !important;
+}
+
+/* Accepted edge weight badge */
+html.light svg rect[fill="#0A2E22"] {
+  fill: #ECFDF5 !important;
+  stroke: #059669 !important;
+  stroke-width: 2 !important;
+}
+
+html.light svg text[fill="#6EE7B7"] {
+  fill: #065F46 !important;
+  font-weight: 800 !important;
+}
+
+/* Current examining edge weight badge */
+html.light svg rect[fill="#3D170B"] {
+  fill: #FFF7ED !important;
+  stroke: #EA580C !important;
+  stroke-width: 2 !important;
+}
+
+html.light svg text[fill="#FFB295"] {
+  fill: #9A3412 !important;
+  font-weight: 800 !important;
+}
+
+/* Rejected edge weight badge */
+html.light svg rect[fill="#3A1414"] {
+  fill: #FEF2F2 !important;
+  stroke: #DC2626 !important;
+  stroke-width: 2 !important;
+}
+
+html.light svg text[fill="#FCA5A5"] {
+  fill: #991B1B !important;
+  font-weight: 800 !important;
+}
+
+/* Node circle body */
+html.light svg circle[fill="#121622"] {
+  fill: #FFFFFF !important;
+}
+
+/* Node letter (House A, B, C, D, E) - high contrast dark text */
+html.light svg text[fill="#FFFFFF"] {
+  fill: #0F172A !important;
+  font-weight: 800 !important;
+}
+
+/* House name caption pill below node */
+html.light svg rect[fill="#0A0C12"] {
+  fill: #F8FAFC !important;
+  stroke: #CBD5E1 !important;
+}
+
+html.light svg text[fill="#CBD5E1"] {
+  fill: #0F172A !important;
+  font-weight: 700 !important;
+}
+
+/* DSU Set badge above node */
+html.light svg rect[fill="#0C0F17"] {
+  fill: #FFFFFF !important;
+  stroke: #CBD5E1 !important;
+}
+
+/* 8. Controls, Buttons & Inputs */
+html.light select,
+html.light input[type="number"],
+html.light input[type="text"] {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+  border-color: #CBD5E1 !important;
+  font-weight: 600 !important;
+}
+
+html.light select:focus,
+html.light input:focus {
+  border-color: #FF6129 !important;
+  outline: 2px solid rgba(255, 97, 41, 0.2) !important;
+}
+
+/* Inset HUD badges & speed toggle pills */
+html.light .bg-\[\#1E2536\],
+html.light .bg-\[\#1E2638\] {
+  background-color: #E2E8F0 !important;
+  color: #0F172A !important;
+}
+
+/* SlideView speaker notes drawer */
+html.light .bg-\[\#101420\].border-b {
+  background-color: #FFFBEB !important;
+  border-color: #FDE68A !important;
+}
+html.light .bg-\[\#101420\].border-b .text-slate-300 {
+  color: #78350F !important;
+}
+html.light .bg-\[\#101420\].border-b .text-white {
+  color: #451A03 !important;
+}
+
+/* Scrollbars in light mode */
+html.light ::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+html.light ::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+}
+html.light ::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
